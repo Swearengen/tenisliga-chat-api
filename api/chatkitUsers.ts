@@ -1,8 +1,7 @@
-const chatkit = require('../server/chatkit')
-const utils = require('./utils')
+import { chatkit } from '../chatkit'
 
-module.exports.createUser = async (event, context) => {
-    let json = utils.getJsonParam(event.body)
+export const createUser = async (event) => {
+    const json = JSON.parse(event.body)
 
     return await chatkit.createUser({
         name: json.name,
@@ -27,8 +26,8 @@ module.exports.createUser = async (event, context) => {
 
 }
 
-module.exports.deleteUser = async (event, context) => {
-    let json = utils.getJsonParam(event.body)
+export const deleteUser = async (event) => {
+    const json = JSON.parse(event.body)
 
     return await chatkit.deleteUser(json.id)
     .then(() => {
@@ -45,8 +44,8 @@ module.exports.deleteUser = async (event, context) => {
     })
 }
 
-module.exports.bulkCreateUsers = async (event, context) => {
-    let json = utils.getJsonParam(event.body)
+export const bulkCreateUsers = async (event) => {
+    const json = JSON.parse(event.body)
 
     return await chatkit.createUsers(json)
         .then((users) => {
@@ -65,4 +64,42 @@ module.exports.bulkCreateUsers = async (event, context) => {
                 body: e
             }
         })
+}
+
+export const loadInitialData = async (event) => {
+    const json = JSON.parse(event.body)
+
+    try {
+        const user = await chatkit.getUser(json.userId)
+
+        if (!user || user.name !== json.userName) {
+            return {
+                statusCode: 200,
+                body: JSON.stringify({
+                    user: {}
+                })
+            }
+        }
+
+        const userRooms = await chatkit.getUserRooms(json.userId)
+		const userCursors = await chatkit.getReadCursorsForUser(json.userId)
+
+        const data = {
+            user,
+            userRooms,
+            userCursors
+        }
+
+        return {
+            statusCode: 200,
+            body: JSON.stringify(data)
+        }
+
+    } catch (error) {
+        return {
+            statusCode: 500,
+            body: error,
+        }
+    }
+
 }

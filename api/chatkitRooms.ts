@@ -1,5 +1,4 @@
-const chatkit = require('../server/chatkit')
-const utils = require('./utils')
+import { chatkit } from '../chatkit'
 
 async function asyncForEach(array, callback) {
     for (let index = 0; index < array.length; index++) {
@@ -21,8 +20,8 @@ const deleteRooms = async (rooms) => {
     })
 }
 
-module.exports.createLeagueRooms = async (event, context) => {
-    let json = utils.getJsonParam(event.body)
+export const createLeagueRooms = async (event) => {
+    let json = JSON.parse(event.body)
 
     if(json.length > 0) {
         try {
@@ -45,7 +44,7 @@ module.exports.createLeagueRooms = async (event, context) => {
 	}
 }
 
-module.exports.deleteLeagueRooms = async (event, context) => {
+export const deleteLeagueRooms = async () => {
     const rooms = await chatkit.getPublicRooms()
 	if (rooms.length > 0) {
         try {

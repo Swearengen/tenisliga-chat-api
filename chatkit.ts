@@ -18,6 +18,18 @@ export const chatkit = {
         return await this.instance.deleteUser({userId})
     },
 
+    getUser: async function(id) {
+        return await this.instance.getUser({id})
+            .then((res) => res)
+            .catch((res) => {
+                if (res.error === 'services/chatkit/not_found/user_not_found') {
+                    console.log(res);
+                } else {
+                    throw res.error;
+                }
+            })
+    },
+
     createRoom: async function(room) {
         return await this.instance.createRoom(room)
     },

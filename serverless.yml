@@ -25,3 +25,10 @@ functions:
       - http:
           path: api/authenticate
           method: post
+
+  loadInitialData:
+    handler: api/chatkitUsers.loadInitialData
+    events:
+      - http:
+          path: api/loadInitialData
+          method: post
