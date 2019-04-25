@@ -32,3 +32,4 @@ functions:
       - http:
           path: api/loadInitialData
           method: post
+          cors: true

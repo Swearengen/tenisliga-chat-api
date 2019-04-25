@@ -1,6 +1,7 @@
 import { APIGatewayProxyHandler } from 'aws-lambda';
 import 'source-map-support/register';
 
+import { allowAccesOrigin } from './utils'
 import { chatkit } from '../chatkit'
 
 export const authenticate: APIGatewayProxyHandler = async (event) => {
@@ -8,10 +9,7 @@ export const authenticate: APIGatewayProxyHandler = async (event) => {
 
 	return {
 		statusCode: authData.status,
-		headers: {
-			'Access-Control-Allow-Origin': '*',
-			'Access-Control-Allow-Credentials': true,
-		},
+		headers: allowAccesOrigin,
 		body: JSON.stringify(authData.body),
 	}
 }

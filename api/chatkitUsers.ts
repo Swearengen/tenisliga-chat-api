@@ -1,4 +1,5 @@
 import { chatkit } from '../chatkit'
+import { allowAccesOrigin } from './utils';
 
 export const createUser = async (event) => {
     const json = JSON.parse(event.body)
@@ -75,6 +76,7 @@ export const loadInitialData = async (event) => {
         if (!user || user.name !== json.userName) {
             return {
                 statusCode: 200,
+                headers: allowAccesOrigin,
                 body: JSON.stringify({
                     user: {}
                 })
@@ -92,12 +94,14 @@ export const loadInitialData = async (event) => {
 
         return {
             statusCode: 200,
+            headers: allowAccesOrigin,
             body: JSON.stringify(data)
         }
 
     } catch (error) {
         return {
             statusCode: 500,
+            headers: allowAccesOrigin,
             body: error,
         }
     }

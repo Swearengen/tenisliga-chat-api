@@ -24,6 +24,7 @@ export const chatkit = {
             .catch((res) => {
                 if (res.error === 'services/chatkit/not_found/user_not_found') {
                     console.log(res);
+                    return undefined
                 } else {
                     throw res.error;
                 }
