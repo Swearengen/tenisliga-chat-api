@@ -33,3 +33,51 @@ functions:
           path: api/loadInitialData
           method: post
           cors: true
+
+  createUser:
+    handler: api/chatkitUsers.createUser
+    events:
+      - http:
+          path: api/createUser
+          method: post
+          cors: true
+
+  updateUser:
+    handler: api/chatkitUsers.updateUser
+    events:
+      - http:
+          path: api/updateUser
+          method: post
+          cors: true
+
+  deleteUser:
+    handler: api/chatkitUsers.deleteUser
+    events:
+      - http:
+          path: api/deleteUser
+          method: post
+          cors: true
+
+  bulkCreateUsers:
+    handler: api/chatkitUsers.bulkCreateUsers
+    events:
+      - http:
+          path: api/bulkCreateUsers
+          method: post
+          cors: true
+
+  createLeagueRooms:
+    handler: api/chatkitRooms.createLeagueRooms
+    events:
+      - http:
+          path: api/createLeagueRooms
+          method: post
+          cors: true
+
+  deleteLeagueRooms:
+    handler: api/chatkitRooms.deleteLeagueRooms
+    events:
+      - http:
+          path: api/deleteLeagueRooms
+          method: post
+          cors: true

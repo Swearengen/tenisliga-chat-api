@@ -7,7 +7,8 @@ export const createUser = async (event) => {
     return await chatkit.createUser({
         name: json.name,
         id: json.id,
-        avatarURL: json.avatarURL
+        avatarURL: json.avatarURL,
+        customData: json.customData,
     })
     .then((user) => {
         return chatkit.addUsersToGeneralRoom([user.id])
@@ -15,12 +16,35 @@ export const createUser = async (event) => {
     .then(() => {
         return {
             statusCode: 200,
+            headers: allowAccesOrigin,
             body: "success"
         }
     })
     .catch((e) => {
         return {
             statusCode: 500,
+            headers: allowAccesOrigin,
+            body: e
+        }
+    })
+
+}
+
+export const updateUser = async (event) => {
+    const json = JSON.parse(event.body)
+
+    return await chatkit.updateUser(json)
+    .then(() => {
+        return {
+            statusCode: 200,
+            headers: allowAccesOrigin,
+            body: "success"
+        }
+    })
+    .catch((e) => {
+        return {
+            statusCode: 500,
+            headers: allowAccesOrigin,
             body: e
         }
     })
@@ -34,12 +58,14 @@ export const deleteUser = async (event) => {
     .then(() => {
         return {
             statusCode: 200,
+            headers: allowAccesOrigin,
             body: "success"
         }
     })
     .catch((e) => {
         return {
             statusCode: 500,
+            headers: allowAccesOrigin,
             body: e
         }
     })
@@ -56,12 +82,14 @@ export const bulkCreateUsers = async (event) => {
         .then(() => {
             return {
                 statusCode: 200,
+                headers: allowAccesOrigin,
                 body: "success"
             }
         })
         .catch((e) => {
             return {
                 statusCode: 500,
+                headers: allowAccesOrigin,
                 body: e
             }
         })

@@ -1,4 +1,5 @@
 import { chatkit } from '../chatkit'
+import { allowAccesOrigin } from './utils';
 
 async function asyncForEach(array, callback) {
     for (let index = 0; index < array.length; index++) {
@@ -28,17 +29,20 @@ export const createLeagueRooms = async (event) => {
             await createRooms(json)
             return {
                 statusCode: 200,
+                headers: allowAccesOrigin,
                 body: "success"
             }
         } catch (error) {
             return {
                 statusCode: 500,
+                headers: allowAccesOrigin,
                 body: error
             }
         }
 	} else {
 		return {
             statusCode: 500,
+            headers: allowAccesOrigin,
             body: "Error"
         }
 	}
@@ -51,11 +55,13 @@ export const deleteLeagueRooms = async () => {
             await deleteRooms(rooms)
             return {
                 statusCode: 200,
+                headers: allowAccesOrigin,
                 body: "success"
             }
         } catch (error) {
             return {
                 statusCode: 500,
+                headers: allowAccesOrigin,
                 body: error
             }
         }

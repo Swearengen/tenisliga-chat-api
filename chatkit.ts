@@ -6,8 +6,12 @@ export const chatkit = {
         key: process.env.CHATKIT_INSTANCE_KEY,
     }),
 
-    createUser: async function({name, id, avatarURL}) {
-        return await this.instance.createUser({id, name, avatarURL})
+    createUser: async function({name, id, avatarURL, customData}) {
+        return await this.instance.createUser({id, name, avatarURL, customData})
+    },
+
+    updateUser: async function(user) {
+        return await this.instance.updateUser(user)
     },
 
     createUsers: async function(users) {
