@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "deploy:dev": "SLS_DEBUG=* serverless deploy --stage development",
-    "deploy:prod": "sls deploy --env production"
+    "deploy:prod": "NODE_ENV=production sls deploy --stage production"
   },
   "dependencies": {
     "@pusher/chatkit-server": "^1.0.6",
